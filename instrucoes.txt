@@ -1,0 +1,9 @@
+# Para executor o Flask precisa setar a classe principal!
+
+    - Para ambiente Windows 
+        set FLASK_APP=app.py   
+        set FLASK_DEBUG=1
+
+    - Para ambiente Linux 
+        export FLASK_APP=app.py   
+        export FLASK_DEBUG=1
