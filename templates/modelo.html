@@ -13,19 +13,36 @@
     {{ x + y }}
 
     {% if x >= 50 %}
-        <p>Maiou ou irgual</p>
+    <p>Maiou ou irgual</p>
     {% else %}
-        <p>Menor</p>
+    <p>Menor</p>
     {% endif %}
 
-    <table>
+    <table style="border: solid 1px;">
         {% for k, v in query.items() %}
         <tr>
-            <th>{{ k }}</th>
-            <td>{{ v }}</td>
+            <th style="border: solid 1px; background-color: rgba(0, 0, 0, .2);">{{ k }}</th>
+        </tr>
+        <tr>
+            <td style="border: solid 1px; text-align: center;">{{ v }}</td>
         </tr>
         {% endfor %}
     </table>
+
+    <h1>Calculo de Notas</h1>
+    <br>
+    <form action="http://127.0.0.1:5000/calculo" method="POST">
+
+        {% for num in range(4) %}
+        <p>
+            <input type="number" min="0" max="10" name="nota{{num}}" id="nota{{num}}" placeholder="Nota {{num}}" required>
+        </p>
+        {% endfor %}
+
+        <p>
+            <button type="submit">Enviar</button>
+        </p>
+    </form>
 </body>
 
 </html>

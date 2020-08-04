@@ -17,6 +17,12 @@ def index():
     query = request.args.to_dict()
     return render_template('modelo.html', x=x, y=y, query=query)
 
+@app.route("/calculo", methods=['POST'])
+def calculo():
+    array = [int(v) for v in request.form.to_dict().values()]
+    nota = sum(array) / len(array)
+    return render_template('calculo.html', nota=nota)
+
 @app.route("/add", methods=["GET", "POST"])
 def add():
     if request.method == "POST":

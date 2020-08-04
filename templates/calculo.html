@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado</title>
+</head>
+
+<body>
+
+    <h1>{{nota}}</h1>
+    {% if nota >= 7 %}
+    <h1>Aprovado</h1>
+    {% elif nota >= 5 and nota < 7  %}
+    <h1>Recuperação</h1>
+    {% else %}
+    <h1>Reprovado</h1>
+    {% endif %}
+
+</body>
+
+</html>
