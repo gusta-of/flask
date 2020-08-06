@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Uploads</title>
-    </head>
-    <body>
 
-       
+<head>
+    <meta charset="UTF-8">
+    <title>Uploads</title>
+</head>
 
-        <p>
-            <h5>Para voltar ao inicio <a href="/">Clique aqui!</a></h5>
-        </p>
-    </body>
+<body>
+
+
+
+    <table style="border: solid 1px;" >
+
+
+        {%  for file in files %}
+
+        <form action="dowload/{{file}}" method="POST">
+            <tr>
+                <th style="border: solid 1px; background-color: rgba(0, 0, 0, .2);">
+                    <input type="image" src="{{ url_for('static', filename=file) }}" width="48" height="48">
+                </th>
+
+                <td style="border: solid 1px; text-align: center;">
+                    <button type="submit">Dowload</button>
+                </td>
+            </tr>
+        </form>
+
+        {% endfor %}
+
+    </table>
+
+
+
+    <p>
+    <h5>Para voltar ao inicio <a href="/">Clique aqui!</a></h5>
+    </p>
+</body>
+
 </html>

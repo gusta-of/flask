@@ -6,7 +6,7 @@ import os, json
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'upload')
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static')
 # code
 
 
@@ -28,13 +28,21 @@ def upload():
             return redirect(request.url)
 
         files = request.files.getlist('files[]')
+        
         for file in files:
             if file and allowed_file(file.filename):
                 savePhat = os.path.join(
                     UPLOAD_FOLDER, secure_filename(file.filename))
                 file.save(savePhat)
     
-    return render_template('upload/uploads.html')
+    names = [str(v.filename) for v in files]
+    return render_template('upload/uploads.html', files=names)
+
+@app.route("/dowload/<nameFile>", methods=['POST'])
+def dowload(nameFile):
+    file = os.path.join(UPLOAD_FOLDER, nameFile)
+    return send_file(file, mimetype="imagem/jpg")
+
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 def allowed_file(filename):
