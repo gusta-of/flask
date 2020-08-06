@@ -21,7 +21,7 @@ def index():
 
 # ------ INICIO UPLOAD
 
-@app.route("/upload", methods=['POST'])
+@app.route("/upload", methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
         if 'files[]' not in request.files:
@@ -34,8 +34,9 @@ def upload():
                 savePhat = os.path.join(
                     UPLOAD_FOLDER, secure_filename(file.filename))
                 file.save(savePhat)
+
     
-    names = [str(v.filename) for v in files]
+    names = [ f for f in os.listdir(UPLOAD_FOLDER) if os.path.isfile(os.path.join(UPLOAD_FOLDER, f))]
     return render_template('upload/uploads.html', files=names)
 
 @app.route("/dowload/<nameFile>", methods=['POST'])

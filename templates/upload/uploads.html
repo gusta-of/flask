@@ -18,7 +18,7 @@
         <form action="dowload/{{file}}" method="POST">
             <tr>
                 <th style="border: solid 1px; background-color: rgba(0, 0, 0, .2);">
-                    <input type="image" src="{{ url_for('static', filename=file) }}" width="48" height="48">
+                    <img src="{{ url_for('static', filename=file) }}" style="max-height: 48px; max-width: 48px;">
                 </th>
 
                 <td style="border: solid 1px; text-align: center;">
