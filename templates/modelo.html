@@ -35,7 +35,8 @@
 
         {% for num in range(4) %}
         <p>
-            <input type="number" min="0" max="10" name="nota{{num}}" id="nota{{num}}" placeholder="Nota {{num}}" required>
+            <input type="number" min="0" max="10" name="nota{{num}}" id="nota{{num}}" placeholder="Nota {{num}}"
+                required>
         </p>
         {% endfor %}
 
@@ -43,6 +44,19 @@
             <button type="submit">Enviar</button>
         </p>
     </form>
+
+    <br>
+    <h1>_____________________________________________</h1>
+    <p>
+        <form action="/upload" enctype="multipart/form-data" method="POST">
+            <p>
+                <input type="file" name="imagem" id="imagem" required>
+            </p>
+            <p>
+                <button type="submit">Enviar</button>
+            </p>
+        </form>
+    </p>
 </body>
 
 </html>

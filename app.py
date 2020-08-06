@@ -1,27 +1,40 @@
 # Start Flask
 
-from flask import Flask, request, render_template, abort, redirect, url_for
-from json import dumps
+from flask import Flask, request, render_template, abort, redirect, url_for, send_file
+from werkzeug.utils import secure_filename
+import os, json
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-
-
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'upload')
 # code
+
 
 @app.route("/")
 @app.route("/index")
 def index():
-    x = 30 
+    x = 30
     y = 10
 
     query = request.args.to_dict()
     return render_template('modelo.html', x=x, y=y, query=query)
 
+
+@app.route("/upload", methods=['POST'])
+def upload():
+    file = request.files['imagem']
+    savePhat = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+    file.save(savePhat)
+
+
+
+    return render_template('upload/uploads.html')
+
 @app.route("/calculo", methods=['POST'])
 def calculo():
     array = [int(v) for v in request.form.to_dict().values()]
     nota = sum(array) / len(array)
-    return render_template('calculo.html', nota=nota)
+    return render_template('teste1/calculo.html', nota=nota)
+
 
 @app.route("/add", methods=["GET", "POST"])
 def add():
@@ -29,11 +42,12 @@ def add():
         if request.form['nome'] == "admin" and request.form['senha'] == "admin":
             res = request.form.to_dict()
             return redirect("sucesso/%s" % res['nome'], code=302)
-            
-        else: 
+
+        else:
             abort(401)
     else:
         return abort(403)
+
 
 @app.route("/sucesso/<name>")
 def sucesso(name):
