@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 import os, json
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'upload')
 # code
 
@@ -18,16 +19,28 @@ def index():
     query = request.args.to_dict()
     return render_template('modelo.html', x=x, y=y, query=query)
 
+# ------ INICIO UPLOAD
 
 @app.route("/upload", methods=['POST'])
 def upload():
-    file = request.files['imagem']
-    savePhat = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
-    file.save(savePhat)
+    if request.method == 'POST':
+        if 'files[]' not in request.files:
+            return redirect(request.url)
 
-
-
+        files = request.files.getlist('files[]')
+        for file in files:
+            if file and allowed_file(file.filename):
+                savePhat = os.path.join(
+                    UPLOAD_FOLDER, secure_filename(file.filename))
+                file.save(savePhat)
+    
     return render_template('upload/uploads.html')
+
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# ------ FIM UPLOAD
 
 @app.route("/calculo", methods=['POST'])
 def calculo():

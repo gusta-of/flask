@@ -50,7 +50,7 @@
     <p>
         <form action="/upload" enctype="multipart/form-data" method="POST">
             <p>
-                <input type="file" name="imagem" id="imagem" required>
+                <input type="file" name="files[]" multiple="true" autocomplete="off" required>
             </p>
             <p>
                 <button type="submit">Enviar</button>
